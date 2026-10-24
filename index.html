@@ -1,0 +1,1346 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Les contrats</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Inter:wght@300;400;500;600&display=swap">
+<style>
+/* ── RESET & BASE ─────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* Fiche d'exercices en thème clair : blocs = séances, cartes dépliables, corrections masquables */
+:root {
+  --bg:        #f4f6f9;
+  --surface:   #ffffff;
+  --card:      #ffffff;
+  --border:    #dfe3ea;
+  --border-hi: #b9c0ce;
+  --text:      #1d2230;
+  --text-dim:  #5c6476;
+  --accent:    #b97d00;
+  --accent-bg: #fff6df;
+  --green:     #1b8047;
+  --green-bg:  #ecf7f0;
+  --green-bd:  #c9e6d4;
+  --green-dk:  #12552f;
+  --red:       #c23b3b;
+  --blue:      #2d69ad;
+  --blue-bg:   #edf3fb;
+  --purple:    #6f45ad;
+  --font-head: 'Syne', 'Trebuchet MS', sans-serif;
+  --font-body: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --radius:    10px;
+  color-scheme: light;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.7;
+  min-height: 100vh;
+}
+
+/* ── HEADER ──────────────────────────────────────────────── */
+.site-header {
+  background: linear-gradient(135deg, #ffffff 0%, #eef2f8 100%);
+  border-bottom: 1px solid var(--border);
+  padding: 44px 20px 32px;
+  text-align: center;
+}
+.site-header .kicker {
+  display: inline-block;
+  background: var(--accent);
+  color: #ffffff;
+  font-family: var(--font-head);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  padding: 3px 12px;
+  border-radius: 3px;
+  margin-bottom: 18px;
+}
+.site-header h1 {
+  font-family: var(--font-head);
+  font-size: clamp(24px, 6vw, 38px);
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: 8px;
+  line-height: 1.15;
+  text-wrap: balance;
+}
+.site-header .sub {
+  color: var(--text-dim);
+  font-size: 14px;
+  font-weight: 400;
+  max-width: 540px;
+  margin: 0 auto 20px;
+}
+.legende {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  margin: 0 auto 22px;
+  font-size: 12.5px;
+  color: var(--text-dim);
+}
+
+/* ── NAV ANCRES ──────────────────────────────────────────── */
+.nav-anchors {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.nav-anchors a {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 500;
+  padding: 7px 14px;
+  text-decoration: none;
+  transition: border-color .15s, color .15s;
+}
+.nav-anchors a:hover, .nav-anchors a:focus-visible { border-color: var(--accent); color: var(--accent); }
+
+/* ── CONTENEUR PRINCIPAL ─────────────────────────────────── */
+main {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 36px 18px 80px;
+}
+
+/* ── TITRE DE BLOC ───────────────────────────────────────── */
+.bloc-titre {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 52px 0 6px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--border);
+}
+.bloc-titre:first-child { margin-top: 0; }
+.bloc-titre .icone { font-size: 26px; flex-shrink: 0; }
+.bloc-titre h2 {
+  font-family: var(--font-head);
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--text);
+  line-height: 1.3;
+  text-wrap: balance;
+}
+.bloc-titre h2 small {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--accent);
+  letter-spacing: 1px;
+}
+
+/* ── MÉMO ────────────────────────────────────────────────── */
+.memo {
+  background: var(--green-bg);
+  border: 1px solid var(--green-bd);
+  border-left: 4px solid var(--green);
+  border-radius: var(--radius);
+  padding: 16px 18px;
+  margin: 16px 0 24px;
+  font-size: 14px;
+  line-height: 1.75;
+}
+.memo .memo-titre {
+  font-family: var(--font-head);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--green);
+  margin-bottom: 8px;
+}
+.memo code {
+  display: block;
+  background: #ffffff;
+  border: 1px solid var(--green-bd);
+  border-radius: 5px;
+  padding: 8px 12px;
+  color: var(--green-dk);
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 13.5px;
+  margin: 5px 0;
+}
+.memo .note { color: var(--text-dim); font-size: 13px; margin-top: 8px; }
+
+/* ── CARTE EXERCICE ──────────────────────────────────────── */
+.exo-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin-bottom: 14px;
+  overflow: hidden;
+  transition: border-color .15s;
+}
+.exo-card:hover { border-color: var(--border-hi); }
+
+.exo-header {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  padding: 14px 16px;
+  cursor: pointer;
+  user-select: none;
+  list-style: none;
+}
+.exo-header::-webkit-details-marker { display: none; }
+.exo-header:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+
+.exo-num {
+  font-family: var(--font-head);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-dim);
+  flex-shrink: 0;
+  min-width: 40px;
+}
+.badge {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 2px 9px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+.badge-1 { background: #e9f6ee; color: var(--green); border: 1px solid #bfe2cc; }
+.badge-2 { background: var(--accent-bg); color: #8a5d00; border: 1px solid #efd798; }
+.badge-3 { background: #fbeaea; color: var(--red); border: 1px solid #efc4c4; }
+.badge-exam { background: #f2ecfa; color: var(--purple); border: 1px solid #d9c9ef; }
+
+.exo-titre-txt {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text);
+  flex: 1 1 200px;
+  min-width: 0;
+}
+.chevron { color: var(--text-dim); font-size: 13px; flex-shrink: 0; transition: transform .2s; }
+details[open] .chevron { transform: rotate(180deg); }
+
+/* ── CORPS DE L'EXERCICE ─────────────────────────────────── */
+.exo-body { padding: 0 16px 20px; border-top: 1px solid var(--border); }
+
+.contexte {
+  background: var(--blue-bg);
+  border-left: 3px solid var(--blue);
+  border-radius: 0 6px 6px 0;
+  padding: 14px 16px;
+  margin: 16px 0;
+  font-size: 14px;
+  line-height: 1.75;
+}
+.contexte strong { color: var(--text); }
+
+.table-wrap { overflow-x: auto; margin: 12px 0; }
+.tableau-donnees {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  background: var(--surface);
+}
+.tableau-donnees th {
+  background: #eef1f6;
+  color: var(--text-dim);
+  font-family: var(--font-head);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 8px 10px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+.tableau-donnees td {
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text);
+  vertical-align: top;
+}
+.tableau-donnees tr:last-child td { border-bottom: none; }
+.tableau-donnees td.num { font-weight: 700; color: var(--text); white-space: nowrap; }
+
+.questions { margin: 18px 0 0; }
+.question { display: flex; gap: 10px; margin-bottom: 10px; align-items: flex-start; }
+.question .q-num {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  background: var(--accent);
+  color: #ffffff;
+  font-family: var(--font-head);
+  font-weight: 800;
+  font-size: 11px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2px;
+}
+.question p { font-size: 14px; margin: 0; min-width: 0; }
+
+/* ── COUP DE POUCE ───────────────────────────────────────── */
+.ordre-grandeur {
+  background: var(--accent-bg);
+  border: 1px solid #efd798;
+  border-radius: 6px;
+  padding: 10px 14px;
+  font-size: 13px;
+  color: #6e4b00;
+  margin: 12px 0 0;
+}
+.ordre-grandeur::before { content: "💡 "; }
+
+/* ── BOUTON CORRECTION ───────────────────────────────────── */
+.btn-corrige {
+  background: var(--surface);
+  border: 1px solid var(--border-hi);
+  border-radius: 6px;
+  color: var(--text-dim);
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 500;
+  padding: 9px 16px;
+  margin-top: 18px;
+  transition: all .15s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.btn-corrige:hover, .btn-corrige:focus-visible { border-color: var(--green); color: var(--green); }
+
+/* ── CORRECTION ──────────────────────────────────────────── */
+.correction {
+  display: none;
+  background: var(--green-bg);
+  border: 1px solid var(--green-bd);
+  border-radius: 6px;
+  padding: 16px;
+  margin-top: 14px;
+  font-size: 14px;
+  line-height: 1.8;
+}
+.correction.visible { display: block; }
+.correction .corr-etape {
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--green-bd);
+}
+.correction .corr-etape:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+.correction .c-num {
+  display: inline-block;
+  background: var(--green);
+  color: #ffffff;
+  font-family: var(--font-head);
+  font-weight: 800;
+  font-size: 10px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 18px;
+  margin-right: 6px;
+}
+.correction code {
+  display: block;
+  background: #ffffff;
+  border: 1px solid var(--green-bd);
+  border-radius: 4px;
+  padding: 6px 12px;
+  color: var(--green-dk);
+  font-family: var(--font-body);
+  font-size: 13.5px;
+  margin: 5px 0;
+}
+.correction .res { font-family: var(--font-head); font-weight: 700; color: var(--text); }
+.correction .conclu { margin-top: 8px; font-size: 13.5px; color: #2c6244; font-style: italic; }
+.correction .tableau-corr { width: 100%; border-collapse: collapse; font-size: 13px; margin: 8px 0; background: #ffffff; }
+.correction .tableau-corr th {
+  background: #dff0e6;
+  color: var(--green-dk);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 6px 10px;
+  text-align: left;
+}
+.correction .tableau-corr td { padding: 6px 10px; border-bottom: 1px solid var(--green-bd); color: #24402f; vertical-align: top; }
+.correction .tableau-corr td.val { font-weight: 700; color: var(--green); }
+
+/* ── SÉPARATEUR ──────────────────────────────────────────── */
+hr.section-sep { border: none; border-top: 1px solid var(--border); margin: 54px 0 0; }
+
+/* ── FOOTER ──────────────────────────────────────────────── */
+.site-footer {
+  border-top: 1px solid var(--border);
+  padding: 28px 20px;
+  text-align: center;
+  color: var(--text-dim);
+  font-size: 12px;
+  background: var(--surface);
+}
+
+/* ── RESPONSIVE ──────────────────────────────────────────── */
+@media (max-width: 520px) {
+  .exo-titre-txt { font-size: 13.5px; }
+  .contexte { font-size: 13.5px; }
+  .tableau-donnees { font-size: 12px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══ HEADER ══════════════════════════════════════════════ -->
+<header class="site-header">
+  <div class="kicker">🥖 Gestion appliquée – CAP boulanger</div>
+  <h1>Les contrats</h1>
+  <p class="sub">Chapitre 17. 18 exercices en 5 séances, avec la boulangerie Au Pétrin d'Or. Ouvre un exercice, réponds sur ton cahier, puis vérifie avec la correction.</p>
+  <div class="legende">
+    <span class="badge badge-1">⬆ décollage</span> je découvre
+    <span class="badge badge-2">◆ intermédiaire</span> j'applique
+    <span class="badge badge-exam">★ examen</span> je m'entraîne
+  </div>
+  <nav class="nav-anchors">
+    <a href="#definition">1 · Un contrat, c'est quoi ?</a>
+    <a href="#formes">2 · Types et formes</a>
+    <a href="#validite">3 · La validité</a>
+    <a href="#obligations">4 · Les obligations</a>
+    <a href="#examen">5 · Sujets type examen</a>
+  </nav>
+</header>
+
+<main>
+
+<!-- ══════════════════════════════════════════════════════════
+     BLOC 1 – UN CONTRAT, C'EST QUOI ? (séance 1)
+══════════════════════════════════════════════════════════ -->
+<div class="bloc-titre" id="definition">
+  <span class="icone">🤝</span>
+  <h2><small>Séance 1 · 1 h</small>Bloc 1 – Un contrat, c'est quoi ?</h2>
+</div>
+
+<div class="memo">
+  <div class="memo-titre">🗂 mémo</div>
+  <code>Contrat = accord de volontés entre deux ou plusieurs personnes pour créer, modifier, transmettre ou éteindre des obligations (article 1101 du Code civil).</code>
+  <code>Parties = les personnes qui concluent le contrat.</code>
+  <code>Obligations = ce que les parties s'engagent à donner, à faire ou à ne pas faire.</code>
+  <code>Liberté contractuelle = chacun est libre de signer ou non, de choisir avec qui, de choisir le contenu et la forme du contrat, dans les limites de la loi (article 1102 du Code civil).</code>
+  <p class="note">Un contrat peut être écrit ou oral. Dans une entreprise, on signe des contrats pour acheter, vendre, embaucher, louer, changer de fournisseur (encadré « bon à savoir » et définition, pages 125 et 126 du manuel).</p>
+</div>
+
+<!-- EX 1 -->
+<details class="exo-card">
+  <summary class="exo-header">
+    <span class="exo-num">Ex. 1</span>
+    <span class="badge badge-1">⬆ décollage</span>
+    <span class="exo-titre-txt">Des contrats partout au Pétrin d'Or</span>
+    <span class="chevron">▼</span>
+  </summary>
+  <div class="exo-body">
+    <div class="contexte">
+      <strong>Au Pétrin d'Or</strong> est une boulangerie tenue par <strong>M. Benali</strong>, artisan boulanger. Il travaille avec Hugo, ouvrier boulanger, Mme Martin, vendeuse, et Léa, apprentie en CAP boulanger. Voici une semaine à la boulangerie :<br><br>
+      a. Lundi, M. Benali commande 20 sacs de farine au moulin Durand.<br>
+      b. Mardi, Laure achète une baguette et deux croissants.<br>
+      c. Mercredi, Hugo prend sa pause et boit un café.<br>
+      d. Jeudi, M. Benali embauche Léa en apprentissage.<br>
+      e. Vendredi, M. Benali paie le loyer du local au propriétaire.<br>
+      f. Samedi, Léa range la réserve.
+    </div>
+    <div class="questions">
+      <div class="question"><span class="q-num">1</span><p>Recopie les lettres des situations où un contrat est conclu ou exécuté.</p></div>
+      <div class="question"><span class="q-num">2</span><p>Pour la situation b, nomme les deux parties.</p></div>
+      <div class="question"><span class="q-num">3</span><p>Complète la phrase : « un contrat est un accord de … entre deux ou plusieurs … ».</p></div>
+    </div>
+    <div class="ordre-grandeur"><strong>Coup de pouce :</strong> un contrat lie au moins deux personnes qui se mettent d'accord. Si une personne agit seule, ce n'est pas un contrat.</div>
+    <button class="btn-corrige" onclick="toggleCorr(this)">✅ Voir la correction</button>
+    <div class="correction">
+      <div class="corr-etape">
+        <span class="c-num">1</span>
+        <code>a (contrat de vente avec le moulin) · b (contrat de vente avec la cliente) · d (contrat d'apprentissage) · e (contrat de location du local)</code>
+        <p>c et f : Hugo et Léa agissent seuls, il n'y a pas d'accord avec une autre personne.</p>
+      </div>
+      <div class="corr-etape">
+        <span class="c-num">2</span>
+        <p class="res">Les parties sont la boulangerie Au Pétrin d'Or (le vendeur) et Laure (l'acheteuse).</p>
+      </div>
+      <div class="corr-etape">
+        <span class="c-num">3</span>
+        <code>Un contrat est un accord de volontés entre deux ou plusieurs personnes.</code>
+        <p class="conclu">Acheter, vendre, embaucher, louer : l'activité de la boulangerie repose sur des contrats.</p>
+      </div>
+    </div>
+  </div>
+</details>
+
+<!-- EX 2 -->
+<details class="exo-card">
+  <summary class="exo-header">
+    <span class="exo-num">Ex. 2</span>
+    <span class="badge badge-1">⬆ décollage</span>
+    <span class="exo-titre-txt">Donner, faire, ne pas faire</span>
+    <span class="chevron">▼</span>
+  </summary>
+  <div class="exo-body">
+    <div class="contexte">
+      Léa lit son contrat et les documents de la boulangerie. Elle relève ces engagements :<br><br>
+      a. Le client paie 1,20 € pour sa baguette.<br>
+      b. Le moulin Durand livre la farine mardi avant 6 h.<br>
+      c. Hugo ne divulgue pas les recettes de la maison.<br>
+      d. M. Benali verse le salaire de Léa chaque mois.<br>
+      e. Léa suit les cours au CFA.
+    </div>
+    <div class="questions">
+      <div class="question"><span class="q-num">1</span><p>Classe chaque engagement dans une colonne : donner · faire · ne pas faire.</p></div>
+      <div class="question"><span class="q-num">2</span><p>Comment appelle-t-on ces engagements dans un contrat ?</p></div>
+    </div>
+    <div class="ordre-grandeur"><strong>Coup de pouce :</strong> relis l'encadré « ! » de la page 125 du manuel. Donner = remettre une chose ou de l'argent. Faire = réaliser une action. Ne pas faire = s'interdire une action.</div>
+    <button class="btn-corrige" onclick="toggleCorr(this)">✅ Voir la correction</button>
+    <div class="correction">
+      <div class="corr-etape">
+        <span class="c-num">1</span>
+        <div class="table-wrap">
+        <table class="tableau-corr">
+          <tr><th>Donner</th><th>Faire</th><th>Ne pas faire</th></tr>
+          <tr><td class="val">a · d</td><td class="val">b · e</td><td class="val">c</td></tr>
+        </table>
+        </div>
+        <p>Le prix de 1,20 € est un exemple pour l'exercice, pas un prix de référence.</p>
+      </div>
+      <div class="corr-etape">
+        <span class="c-num">2</span>
+        <p class="res">Ce sont des obligations : ce que les parties s'engagent à donner, à faire ou à ne pas faire.</p>
+        <p class="conclu">Chaque partie a des obligations : un contrat crée des engagements dans les deux sens.</p>
+      </div>
+    </div>
+  </div>
+</details>
+
+<!-- EX 3 -->
+<details class="exo-card">
+  <summary class="exo-header">
+    <span class="exo-num">Ex. 3</span>
+    <span class="badge badge-2">◆ intermédiaire</span>
+    <span class="exo-titre-txt">Libre de contracter, mais dans les limites de la loi</span>
+    <span class="chevron">▼</span>
+  </summary>
+  <div class="exo-body">
+    <div class="contexte">
+      Exercice 1 du manuel, à partir de l'article 1102 du Code civil (page 126) :<br>
+      <em>« La liberté contractuelle ne permet pas de déroger aux règles qui intéressent l'ordre public. »</em><br><br>
+      M. Benali veut changer de meunier. Il hésite entre le moulin Durand et un autre moulin. Il veut aussi embaucher un vendeur le dimanche et lui propose un salaire inférieur au Smic, « puisque le vendeur est d'accord ».
+    </div>
+    <div class="questions">
+      <div class="question"><span class="q-num">1</span><p>M. Benali peut-il choisir librement son meunier ? Justifie avec l'article 1102.</p></div>
+      <div class="question"><span class="q-num">2</span><p>Explique l'expression « déroger aux règles qui intéressent l'ordre public ».</p></div>
+      <div class="question"><span class="q-num">3</span><p>M. Benali peut-il payer le vendeur sous le Smic, même si celui-ci est d'accord ? Explique.</p></div>
+    </div>
+    <div class="ordre-grandeur"><strong>Coup de pouce :</strong> déroger = ne pas respecter une règle. Ordre public = les règles obligatoires pour tous, fixées par la loi.</div>
+    <button class="btn-corrige" onclick="toggleCorr(this)">✅ Voir la correction</button>
+    <div class="correction">
+      <div class="corr-etape">
+        <span class="c-num">1</span>
+        <p class="res">Oui. L'article 1102 dit que chacun est libre de choisir son cocontractant : M. Benali choisit le meunier qu'il veut.</p>
+      </div>
+      <div class="corr-etape">
+        <span class="c-num">2</span> Corrigé du manuel :
+        <code>La liberté contractuelle permet aux parties de conclure un contrat de manière assez libre tant que ce contrat ne va pas à l'encontre des lois et des règles de vie au sein de la société.</code>
+      </div>
+      <div class="corr-etape">
+        <span class="c-num">3</span>
+        <p class="res">Non. Le Smic est une règle obligatoire du Code du travail : l'accord du vendeur ne permet pas de l'écarter.</p>
+        <p class="conclu">La liberté de contracter s'arrête là où commence la loi.</p>
+      </div>
+    </div>
+  </div>
+</details>
+
+<hr class="section-sep">
+
+<!-- ══════════════════════════════════════════════════════════
+     BLOC 2 – TYPES ET FORMES DE CONTRATS (séance 2)
+══════════════════════════════════════════════════════════ -->
+<div class="bloc-titre" id="formes" style="margin-top:40px">
+  <span class="icone">📝</span>
+  <h2><small>Séance 2 · 1 h</small>Bloc 2 – Types de contrats et formes</h2>
+</div>
+
+<div class="memo">
+  <div class="memo-titre">🗂 mémo</div>
+  <code>Contrat oral = accord donné par la parole ou par un geste (achat au comptoir).</code>
+  <code>Contrat écrit = accord sur un document signé par les parties (contrat d'apprentissage, contrat d'assurance, bail).</code>
+  <code>Contrat de vente : le vendeur fournit le produit, l'acheteur paie le prix.</code>
+  <code>Pourquoi écrire ? Un écrit est une preuve en cas de litige.</code>
+  <p class="note">Exercices 2, 3 et 4 du manuel, pages 126 et 127.</p>
+</div>
+
+<!-- EX 4 -->
+<details class="exo-card">
+  <summary class="exo-header">
+    <span class="exo-num">Ex. 4</span>
+    <span class="badge badge-1">⬆ décollage</span>
+    <span class="exo-titre-txt">Quatre contrats, quatre formes</span>
+    <span class="chevron">▼</span>
+  </summary>
+  <div class="exo-body">
+    <div class="contexte">
+      Exercice 2 du manuel, transposé au Pétrin d'Or :<br><br>
+      a. Léa signe avec M. Benali le document qui organise sa formation au fournil et au CFA.<br>
+      b. M. Benali occupe le local de la boulangerie et paie chaque mois un loyer au propriétaire.<br>
+      c. Laure demande « une tradition bien cuite, s'il vous plaît », paie et repart.<br>
+      d. M. Benali protège sa boutique et son four contre l'incendie et le dégât des eaux.
+    </div>
+    <div class="questions">
+      <div class="question"><span class="q-num">1</span><p>Pour chaque situation, choisis le type de contrat : location · assurance · apprentissage · vente.</p></div>
+      <div class="question"><span class="q-num">2</span><p>Pour chaque situation, indique la forme du contrat : oral ou écrit.</p></div>
+    </div>
+    <div class="ordre-grandeur"><strong>Coup de pouce :</strong> un seul de ces quatre contrats se conclut sans papier signé.</div>
+    <button class="btn-corrige" onclick="toggleCorr(this)">✅ Voir la correction</button>
+    <div class="correction">
+      <div class="corr-etape">
+        <span class="c-num">1</span> <span class="c-num">2</span> Corrigé du manuel, adapté :
+        <div class="table-wrap">
+        <table class="tableau-corr">
+          <tr><th>Situation</th><th>Type de contrat</th><th>Forme</th></tr>
+          <tr><td>a. Léa et M. Benali</td><td class="val">Contrat d'apprentissage</td><td>Écrit</td></tr>
+          <tr><td>b. Le local</td><td class="val">Contrat de location</td><td>Écrit</td></tr>
+          <tr><td>c. Laure au comptoir</td><td class="val">Contrat de vente</td><td>Oral</td></tr>
+          <tr><td>d. La boutique et le four</td><td class="val">Contrat d'assurance</td><td>Écrit</td></tr>
+        </table>
+        </div>
+        <p class="conclu">Adaptation : dans le manuel, la location concerne une maison (logement). Ici, il s'agit du local commercial de la boulangerie. En pratique, ce contrat est rédigé par écrit.</p>
+      </div>
+    </div>
+  </div>
+</details>
+
+<!-- EX 5 -->
+<details class="exo-card">
+  <summary class="exo-header">
+    <span class="exo-num">Ex. 5</span>
+    <span class="badge badge-2">◆ intermédiaire</span>
+    <span class="exo-titre-txt">Le contrat de vente au comptoir</span>
+    <span class="chevron">▼</span>
+  </summary>
+  <div class="exo-body">
+    <div class="contexte">
+      Exercice 3 du manuel. Samedi matin, Mme Martin sert Laure au comptoir. Laure prend un pain de campagne et une tarte aux pommes. Elle paie par carte et repart avec ses produits.
+    </div>
+    <div class="questions">
+      <div class="question"><span class="q-num">1</span><p>Qui sont les parties ?</p></div>
+      <div class="question"><span class="q-num">2</span><p>Quelle est la forme de ce contrat ?</p></div>
+      <div class="question"><span class="q-num">3</span><p>Cite au moins une obligation de la boulangerie.</p></div>
+      <div class="question"><span class="q-num">4</span><p>Cite au moins une obligation de la cliente.</p></div>
+    </div>
+    <div class="ordre-grandeur"><strong>Coup de pouce :</strong> Mme Martin est salariée. Elle vend au nom de la boulangerie.</div>
+    <button class="btn-corrige" onclick="toggleCorr(this)">✅ Voir la correction</button>
+    <div class="correction">
+      <div class="corr-etape">
+        <span class="c-num">1</span>
+        <p class="res">Le boulanger (la boulangerie Au Pétrin d'Or) et la cliente, Laure.</p>
+      </div>
+      <div class="corr-etape">
+        <span class="c-num">2</span>
+        <p class="res">C'est un contrat oral.</p>
+      </div>
+      <div class="corr-etape">
+        <span class="c-num">3</span> Corrigé du manuel :
+        <code>Fournir le pain commandé par la cliente · respecter les règles d'hygiène et de sécurité · fournir de la marchandise consommable</code>
+      </div>
+      <div class="corr-etape">
+        <span class="c-num">4</span> Corrigé du manuel :
+        <code>Payer la somme correspondant à sa commande · respecter les installations de la boulangerie</code>
+        <p class="conclu">Précision : l'obligation principale de l'acheteur est de payer le prix (article 1650 du Code civil). « Respecter les installations », cité par le manuel, relève plutôt des règles de bonne conduite que du contrat de vente lui-même.</p>
+      </div>
+    </div>
+  </div>
+</details>
+
+<!-- EX 6 -->
+<details class="exo-card">
+  <summary class="exo-header">
+    <span class="exo-num">Ex. 6</span>
+    <span class="badge badge-2">◆ intermédiaire</span>
+    <span class="exo-titre-txt">La commande de Jacques : parole contre parole</span>
+    <span class="chevron">▼</span>
+  </summary>
+  <div class="exo-body">
+    <div class="contexte">
+      Exercice 4 du manuel. Jacques téléphone au Pétrin d'Or pour le mariage de sa fille. Il commande des pains surprise. Mme Martin note la commande sur un post-it, qui se perd.<br><br>
+      Le jour du retrait, Hugo a préparé 3 pains surprise. Jacques affirme : « j'en avais commandé 5 ! ». Personne ne peut prouver la quantité.
+    </div>
+    <div class="questions">
+      <div class="question"><span class="q-num">1</span><p>Quelle est la forme de ce contrat ?</p></div>
+      <div class="question"><span class="q-num">2</span><p>Pourquoi est-il conseillé de rédiger un contrat par écrit plutôt qu'à l'oral ?</p></div>
+      <div class="question"><span class="q-num">3</span><p>Cite 5 informations à noter sur un bon de commande pour éviter ce problème.</p></div>
+    </div>
+    <div class="ordre-grandeur"><strong>Coup de pouce :</strong> pour la question 3, pense à qui commande, quoi, combien, pour quand, à quel prix.</div>
+    <button class="btn-corrige" onclick="toggleCorr(this)">✅ Voir la correction</button>
+    <div class="correction">
+      <div class="corr-etape">
+        <span class="c-num">1</span>
+        <p class="res">C'est un contrat oral (commande par téléphone).</p>
+      </div>
+      <div class="corr-etape">
+        <span class="c-num">2</span> Corrigé du manuel :
+        <code>C'est une protection pour chacune des parties. Un contrat écrit apporte une preuve en cas de litige. Il est plus facile de prouver devant les tribunaux le contenu du contrat.</code>
+      </div>
+      <div class="corr-etape">
+        <span class="c-num">3</span> Exemples :
+        <code>Date de la commande · nom et téléphone du client · produits et quantités · prix · date et heure de retrait · acompte versé · signature du client</code>
+        <p class="conclu">Le bon de commande signé transforme un accord oral en preuve écrite.</p>
+      </div>
+    </div>
+  </div>
+</details>
+
+<!-- EX 7 -->
+<details class="exo-card">
+  <summary class="exo-header">
+    <span class="exo-num">Ex. 7</span>
+    <span class="badge badge-exam">★ examen</span>
+    <span class="exo-titre-txt">Le contrat d'apprentissage de Léa</span>
+    <span class="chevron">▼</span>
+  </summary>
+  <div class="exo-body">
+    <div class="contexte">
+      Léa a 17 ans. Elle prépare son CAP boulanger en alternance au Pétrin d'Or et au CFA. Son contrat d'apprentissage est signé par M. Benali, par Léa et par sa mère, car Léa est mineure.
+    </div>
+    <div class="questions">
+      <div class="question"><span class="q-num">1</span><p>Identifie le type et la forme de ce contrat.</p></div>
+      <div class="question"><span class="q-num">2</span><p>Nomme les parties au contrat.</p></div>
+      <div class="question"><span class="q-num">3</span><p>Cite 2 obligations de M. Benali et 2 obligations de Léa.</p></div>
+      <div class="question"><span class="q-num">4</span><p>Pourquoi la mère de Léa signe-t-elle aussi ?</p></div>
+    </div>
+    <div class="ordre-grandeur"><strong>Coup de pouce :</strong> pour la question 4, relis l'encadré sur la capacité juridique (page 128 du manuel).</div>
+    <button class="btn-corrige" onclick="toggleCorr(this)">✅ Voir la correction</button>
+    <div class="correction">
+      <div class="corr-etape">
+        <span class="c-num">1</span>
+        <p class="res">Contrat d'apprentissage, écrit (corrigé de l'exercice 2 du manuel).</p>
+      </div>
+      <div class="corr-etape">
+        <span class="c-num">2</span>
+        <p class="res">L'employeur, M. Benali (Au Pétrin d'Or), et l'apprentie, Léa.</p>
+      </div>
+      <div class="corr-etape">
+        <span class="c-num">3</span>
+        <div class="table-wrap">
+        <table class="tableau-corr">
+          <tr><th>M. Benali (employeur)</th><th>Léa (apprentie)</th></tr>
+          <tr><td>Former Léa au métier de boulanger</td><td>Travailler pour l'entreprise</td></tr>
+          <tr><td>Verser un salaire</td><td>Suivre les cours au CFA et se présenter à l'examen</td></tr>
+        </table>
+        </div>
+      </div>
+      <div class="corr-etape">
+        <span class="c-num">4</span>
+        <p class="res">Léa est mineure : elle n'a pas la pleine capacité juridique. Son représentant légal (sa mère) signe avec elle.</p>
+      </div>
+    </div>
+  </div>
+</details>
+
+<hr class="section-sep">
+
+<!-- ══════════════════════════════════════════════════════════
+     BLOC 3 – LA VALIDITÉ DU CONTRAT (séance 3)
+══════════════════════════════════════════════════════════ -->
+<div class="bloc-titre" id="validite" style="margin-top:40px">
+  <span class="icone">⚖️</span>
+  <h2><small>Séance 3 · 1 h</small>Bloc 3 – Le contrat est-il valide ?</h2>
+</div>
+
+<div class="memo">
+  <div class="memo-titre">🗂 mémo</div>
+  <code>1. Le consentement : les parties acceptent librement. Pas de menace, pas de violence, pas de tromperie.</code>
+  <code>2. L'objet du contrat : il doit être licite, c'est-à-dire respecter la loi.</code>
+  <code>3. La capacité juridique : être apte à exercer ses droits. En général, être majeur et responsable de ses actes.</code>
+  <code>Une condition manque → le contrat est annulé. On dit que le contrat est nul.</code>
+  <p class="note">Définitions et encadrés des pages 127 et 128 du manuel. Certains contrats doivent aussi contenir des mentions obligatoires.</p>
+</div>
+
+<!-- EX 8 -->
+<details class="exo-card">
+  <summary class="exo-header">
+    <span class="exo-num">Ex. 8</span>
+    <span class="badge badge-1">⬆ décollage</span>
+    <span class="exo-titre-txt">Les 4 situations du manuel</span>
+    <span class="chevron">▼</span>
+  </summary>
+  <div class="exo-body">
+    <div class="contexte">
+      Exercice 5 du manuel (pages 128 et 129). Avant de passer à la boulangerie, Léa s'entraîne sur les situations du manuel.
+    </div>
+    <div class="table-wrap">
+    <table class="tableau-donnees">
+      <tr><th>Situation</th><th>Contrat valide ?</th></tr>
+      <tr><td>a. Laure achète une voiture neuve. À la livraison, elle a déjà 50 000 km au compteur.</td><td>Oui · non</td></tr>
+      <tr><td>b. Jacques, 45 ans, achète un voyage à New York dans une agence de voyages.</td><td>Oui · non</td></tr>
+      <tr><td>c. Thibaud, 22 ans, vend du cannabis à ses copains de l'université.</td><td>Oui · non</td></tr>
+      <tr><td>d. Lucas, 15 ans, souscrit un abonnement téléphonique sur internet.</td><td>Oui · non</td></tr>
+    </table>
+    </div>
+    <div class="questions">
+      <div class="question"><span class="q-num">1</span><p>Pour chaque situation, indique si le contrat est valide.</p></div>
+      <div class="question"><span class="q-num">2</span><p>Justifie en nommant la condition qui n'est pas respectée.</p></div>
+    </div>
+    <div class="ordre-grandeur"><strong>Coup de pouce :</strong> vérifie les 3 conditions dans l'ordre : consentement, objet licite, capacité.</div>
+    <button class="btn-corrige" onclick="toggleCorr(this)">✅ Voir la correction</button>
+    <div class="correction">
+      <div class="corr-etape">
+        <span class="c-num">1</span> <span class="c-num">2</span> Corrigé du manuel :
+        <div class="table-wrap">
+        <table class="tableau-corr">
+          <tr><th>Situation</th><th>Valide ?</th><th>Justification</th></tr>
+          <tr><td>a. Laure</td><td class="val">Non</td><td>Tromperie sur l'état du véhicule : le consentement n'est pas respecté.</td></tr>
+          <tr><td>b. Jacques</td><td class="val">Oui</td><td>Majeur, donc capable. Objet licite. Contrat signé librement.</td></tr>
+          <tr><td>c. Thibaud</td><td class="val">Non</td><td>L'objet du contrat n'est pas licite.</td></tr>
+          <tr><td>d. Lucas</td><td class="val">Non</td><td>Mineur : pas de capacité juridique pour signer ce contrat.</td></tr>
+        </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</details>
+
+<!-- EX 9 -->
+<details class="exo-card">
+  <summary class="exo-header">
+    <span class="exo-num">Ex. 9</span>
+    <span class="badge badge-2">◆ intermédiaire</span>
+    <span class="exo-titre-txt">Valide ou pas, au Pétrin d'Or ?</span>
+    <span class="chevron">▼</span>
+  </summary>
+  <div class="exo-body">
+    <div class="contexte">
+      Exercice 5 du manuel, transposé à la boulangerie :
+    </div>
+    <div class="table-wrap">
+    <table class="tableau-donnees">
+      <tr><th>Situation</th><th>Contrat valide ?</th></tr>
+      <tr><td>a. M. Benali achète un pétrin vendu « neuf ». À la livraison, Hugo découvre qu'il a déjà servi des années.</td><td>Oui · non</td></tr>
+      <tr><td>b. Jacques, 45 ans, commande une galette des rois pour 8 personnes.</td><td>Oui · non</td></tr>
+      <tr><td>c. Thibaud, 22 ans, propose à M. Benali des sacs de farine volés, à moitié prix.</td><td>Oui · non</td></tr>
+      <tr><td>d. Lucas, 15 ans, signe seul un bon de commande de 1 200 € pour un buffet d'anniversaire.</td><td>Oui · non</td></tr>
+      <tr><td>e. Lucas, 15 ans, achète une baguette et un pain au chocolat avec son argent de poche.</td><td>Oui · non</td></tr>
+    </table>
+    </div>
+    <div class="questions">
+      <div class="question"><span class="q-num">1</span><p>Pour chaque situation, indique si le contrat est valide.</p></div>
+      <div class="question"><span class="q-num">2</span><p>Justifie en nommant la condition qui n'est pas respectée.</p></div>
+      <div class="question"><span class="q-num">3</span><p>Compare d et e : pourquoi la réponse n'est-elle pas la même ?</p></div>
+    </div>
+    <div class="ordre-grandeur"><strong>Coup de pouce :</strong> le manuel dit que les mineurs n'ont « généralement » pas la capacité juridique. Ce mot est important pour la situation e.</div>
+    <button class="btn-corrige" onclick="toggleCorr(this)">✅ Voir la correction</button>
+    <div class="correction">
+      <div class="corr-etape">
+        <span class="c-num">1</span> <span class="c-num">2</span>
+        <div class="table-wrap">
+        <table class="tableau-corr">
+          <tr><th>Situation</th><th>Valide ?</th><th>Justification</th></tr>
+          <tr><td>a. Le pétrin</td><td class="val">Non</td><td>Tromperie sur l'état du pétrin : consentement non respecté.</td></tr>
+          <tr><td>b. La galette</td><td class="val">Oui</td><td>Jacques est majeur, l'objet est licite, il commande librement.</td></tr>
+          <tr><td>c. La farine volée</td><td class="val">Non</td><td>Acheter des marchandises volées est interdit : objet illicite.</td></tr>
+          <tr><td>d. Le buffet</td><td class="val">Non</td><td>Lucas est mineur : pas de capacité pour un achat aussi important.</td></tr>
+          <tr><td>e. La baguette</td><td class="val">Oui</td><td>Achat courant, d'un petit montant.</td></tr>
+        </table>
+        </div>
+      </div>
+      <div class="corr-etape">
+        <span class="c-num">3</span>
+        <p class="res">Un mineur peut faire seul les actes de la vie courante, à des conditions normales (article 1148 du Code civil). Acheter une baguette en fait partie. Un buffet à 1 200 € n'en fait pas partie.</p>
+        <p class="conclu">Précision par rapport au manuel : la règle « les mineurs n'ont pas la capacité juridique » a des exceptions. Sinon, aucun mineur ne pourrait acheter son pain.</p>
+      </div>
+    </div>
+  </div>
+</details>
+
+<!-- EX 10 -->
+<details class="exo-card">
+  <summary class="exo-header">
+    <span class="exo-num">Ex. 10</span>
+    <span class="badge badge-2">◆ intermédiaire</span>
+    <span class="exo-titre-txt">Arnaque aux boulangers : l'alerte de la CNBF</span>
+    <span class="chevron">▼</span>
+  </summary>
+  <div class="exo-body">
+    <div class="contexte">
+      Exercice 6 du manuel, à partir du document de la CNBF (Confédération nationale de la boulangerie et boulangerie-pâtisserie française) du 30/03/2021, page 129.<br><br>
+      Résumé du document : une centrale d'achats démarche des artisans boulangers. Elle propose un <strong>contrat de partenariat commercial</strong> : vendre des centaines de baguettes aux écoles et aux collectivités. À la signature, le boulanger verse une caution de 2 000 € à 5 000 €. En échange, la centrale remet un chèque d'avance, parfois de plus de 5 000 €. À l'encaissement, le chèque est <strong>sans provision</strong>.<br><br>
+      Un représentant de cette centrale se présente au Pétrin d'Or.
+    </div>
+    <div class="questions">
+      <div class="question"><span class="q-num">1</span><p>Quel contrat la centrale propose-t-elle à M. Benali ?</p></div>
+      <div class="question"><span class="q-num">2</span><p>Quelle obligation M. Benali devrait-il exécuter dès la signature ?</p></div>
+      <div class="question"><span class="q-num">3</span><p>Pour quelles conditions ce contrat n'est-il pas valide ?</p></div>
+      <div class="question"><span class="q-num">4</span><p>Cite 2 vérifications que M. Benali peut faire avant de signer.</p></div>
+    </div>
+    <div class="ordre-grandeur"><strong>Coup de pouce :</strong> un chèque sans provision ne peut pas être payé par la banque. La centrale savait-elle que son offre était fausse ?</div>
+    <button class="btn-corrige" onclick="toggleCorr(this)">✅ Voir la correction</button>
+    <div class="correction">
+      <div class="corr-etape">
+        <span class="c-num">1</span>
+        <p class="res">Un contrat de partenariat commercial (vente de baguettes aux écoles et collectivités).</p>
+      </div>
+      <div class="corr-etape">
+        <span class="c-num">2</span>
+        <p class="res">Verser une caution de 2 000 € à 5 000 €.</p>
+      </div>
+      <div class="corr-etape">
+        <span class="c-num">3</span> Corrigé du manuel :
+        <code>Il n'est pas valide car il y a tromperie de la part d'une des parties, tromperie sur l'identité de la centrale mais également sur l'objet du contrat.</code>
+        <p>Le consentement de M. Benali n'est pas libre : il est trompé.</p>
+      </div>
+      <div class="corr-etape">
+        <span class="c-num">4</span> Exemples :
+        <code>Vérifier l'existence de l'entreprise · demander conseil à son organisation professionnelle ou à son comptable · ne jamais verser d'argent avant d'avoir vérifié · attendre l'encaissement réel d'un chèque</code>
+        <p class="conclu">La CNBF invite les boulangers à la prudence et à la vigilance face à ce type de démarchage.</p>
+      </div>
+    </div>
+  </div>
+</details>
+
+<!-- EX 11 -->
+<details class="exo-card">
+  <summary class="exo-header">
+    <span class="exo-num">Ex. 11</span>
+    <span class="badge badge-exam">★ examen</span>
+    <span class="exo-titre-txt">Signer sous la menace</span>
+    <span class="chevron">▼</span>
+  </summary>
+  <div class="exo-body">
+    <div class="contexte">
+      Un vendeur d'encarts publicitaires insiste depuis une heure dans la boutique. Il dit à M. Benali : « si vous ne signez pas, je raconte partout que votre pain est mauvais ». Inquiet, M. Benali signe un contrat de publicité de 900 € par an.
+    </div>
+    <div class="questions">
+      <div class="question"><span class="q-num">1</span><p>Identifie les parties et l'objet du contrat.</p></div>
+      <div class="question"><span class="q-num">2</span><p>Le contrat est-il valide ? Nomme la condition non respectée.</p></div>
+      <div class="question"><span class="q-num">3</span><p>Que devient un contrat quand une condition de validité manque ?</p></div>
+    </div>
+    <div class="ordre-grandeur"><strong>Coup de pouce :</strong> relis l'encadré « ! » de la page 127 : menace, violence, tromperie.</div>
+    <button class="btn-corrige" onclick="toggleCorr(this)">✅ Voir la correction</button>
+    <div class="correction">
+      <div class="corr-etape">
+        <span class="c-num">1</span>
+        <p class="res">Parties : M. Benali (Au Pétrin d'Or) et le vendeur d'encarts publicitaires. Objet : une publicité pour la boulangerie contre 900 € par an.</p>
+      </div>
+      <div class="corr-etape">
+        <span class="c-num">2</span>
+        <p class="res">Non. M. Benali a signé sous la menace : son consentement n'est pas libre.</p>
+      </div>
+      <div class="corr-etape">
+        <span class="c-num">3</span>
+        <p class="res">Le contrat est annulé : on dit qu'il est nul.</p>
+        <p class="conclu">L'objet (une publicité) est licite et M. Benali est capable : une seule condition manquante suffit à rendre le contrat nul.</p>
+      </div>
+    </div>
+  </div>
+</details>
+
+<hr class="section-sep">
+
+<!-- ══════════════════════════════════════════════════════════
+     BLOC 4 – LES OBLIGATIONS DES PARTIES (séance 4)
+══════════════════════════════════════════════════════════ -->
+<div class="bloc-titre" id="obligations" style="margin-top:40px">
+  <span class="icone">🔗</span>
+  <h2><small>Séance 4 · 1 h</small>Bloc 4 – Les obligations des parties</h2>
+</div>
+
+<div class="memo">
+  <div class="memo-titre">🗂 mémo</div>
+  <code>En concluant un contrat, les parties s'engagent à respecter leurs obligations.</code>
+  <code>Vendeur : livrer le produit commandé, conforme. Acheteur : payer le prix.</code>
+  <code>La partie qui ne respecte pas ses obligations peut être contrainte par la justice, et peut devoir verser des dommages et intérêts à l'autre partie.</code>
+  <p class="note">Encadré « ! » de la page 130 du manuel. Dommages et intérêts = somme d'argent versée pour réparer le préjudice subi.</p>
+</div>
+
+<!-- EX 12 -->
+<details class="exo-card">
+  <summary class="exo-header">
+    <span class="exo-num">Ex. 12</span>
+    <span class="badge badge-1">⬆ décollage</span>
+    <span class="exo-titre-txt">Qui doit faire quoi ?</span>
+    <span class="chevron">▼</span>
+  </summary>
+  <div class="exo-body">
+    <div class="contexte">
+      M. Benali commande chaque semaine de la farine au moulin Durand. Léa doit ranger ces obligations dans la bonne colonne :<br><br>
+      a. livrer 20 sacs de farine T65<br>
+      b. payer la facture à la date prévue<br>
+      c. livrer à la date et à l'heure convenues<br>
+      d. livrer une farine conforme et non abîmée<br>
+      e. réceptionner et contrôler la livraison
+    </div>
+    <div class="questions">
+      <div class="question"><span class="q-num">1</span><p>Identifie le vendeur et l'acheteur dans ce contrat.</p></div>
+      <div class="question"><span class="q-num">2</span><p>Classe les obligations : vendeur (moulin) · acheteur (boulangerie).</p></div>
+    </div>
+    <div class="ordre-grandeur"><strong>Coup de pouce :</strong> ici, la boulangerie n'est pas le vendeur. Elle achète.</div>
+    <button class="btn-corrige" onclick="toggleCorr(this)">✅ Voir la correction</button>
+    <div class="correction">
+      <div class="corr-etape">
+        <span class="c-num">1</span>
+        <p class="res">Vendeur : le moulin Durand. Acheteur : la boulangerie Au Pétrin d'Or.</p>
+      </div>
+      <div class="corr-etape">
+        <span class="c-num">2</span>
+        <div class="table-wrap">
+        <table class="tableau-corr">
+          <tr><th>Vendeur (moulin Durand)</th><th>Acheteur (Au Pétrin d'Or)</th></tr>
+          <tr><td class="val">a · c · d</td><td class="val">b · e</td></tr>
+        </table>
+        </div>
+        <p class="conclu">La boulangerie est tantôt vendeur (au comptoir), tantôt acheteur (chez ses fournisseurs) : ses obligations changent.</p>
+      </div>
+    </div>
+  </div>
+</details>
+
+<!-- EX 13 -->
+<details class="exo-card">
+  <summary class="exo-header">
+    <span class="exo-num">Ex. 13</span>
+    <span class="badge badge-2">◆ intermédiaire</span>
+    <span class="exo-titre-txt">La livraison de farine incomplète</span>
+    <span class="chevron">▼</span>
+  </summary>
+  <div class="exo-body">
+    <div class="contexte">
+      Mardi, 5 h 30. Léa réceptionne la livraison du moulin Durand avec le bon de livraison.
+    </div>
+    <div class="table-wrap">
+    <table class="tableau-donnees">
+      <tr><th>Produit</th><th>Commandé</th><th>Livré</th><th>État</th></tr>
+      <tr><td>Farine T65, sac de 25 kg</td><td class="num">20</td><td class="num">17</td><td>2 sacs déchirés</td></tr>
+      <tr><td>Farine T80, sac de 25 kg</td><td class="num">5</td><td class="num">5</td><td>Conforme</td></tr>
+    </table>
+    </div>
+    <div class="questions">
+      <div class="question"><span class="q-num">1</span><p>Quelle obligation le moulin Durand n'a-t-il pas respectée ?</p></div>
+      <div class="question"><span class="q-num">2</span><p>Que doit faire Léa au moment de la réception ?</p></div>
+      <div class="question"><span class="q-num">3</span><p>Quelle preuve écrite permet à la boulangerie de réclamer ?</p></div>
+    </div>
+    <div class="ordre-grandeur"><strong>Coup de pouce :</strong> compare quantité commandée, quantité livrée et état des sacs.</div>
+    <button class="btn-corrige" onclick="toggleCorr(this)">✅ Voir la correction</button>
+    <div class="correction">
+      <div class="corr-etape">
+        <span class="c-num">1</span>
+        <p class="res">Livrer la quantité commandée et une marchandise conforme : 3 sacs de T65 manquent et 2 sacs sont déchirés.</p>
+      </div>
+      <div class="corr-etape">
+        <span class="c-num">2</span>
+        <code>Contrôler la livraison · noter les anomalies sur le bon de livraison (3 sacs manquants, 2 sacs déchirés) · prévenir M. Benali</code>
+      </div>
+      <div class="corr-etape">
+        <span class="c-num">3</span>
+        <p class="res">Le bon de livraison annoté, comparé au bon de commande.</p>
+        <p class="conclu">Contrôler la conformité d'une livraison et rendre compte des non-conformités fait partie du travail du boulanger.</p>
+      </div>
+    </div>
+  </div>
+</details>
+
+<!-- EX 14 -->
+<details class="exo-card">
+  <summary class="exo-header">
+    <span class="exo-num">Ex. 14</span>
+    <span class="badge badge-2">◆ intermédiaire</span>
+    <span class="exo-titre-txt">La facture impayée</span>
+    <span class="chevron">▼</span>
+  </summary>
+  <div class="exo-body">
+    <div class="contexte">
+      Thibaud dirige une petite entreprise. Il a commandé par écrit au Pétrin d'Or 200 viennoiseries pour un séminaire. Le bon de commande est signé. Hugo et Léa ont tout livré à l'heure. Deux mois plus tard, Thibaud n'a toujours pas payé, malgré les relances.
+    </div>
+    <div class="questions">
+      <div class="question"><span class="q-num">1</span><p>Identifie les parties et la forme du contrat.</p></div>
+      <div class="question"><span class="q-num">2</span><p>La boulangerie a-t-elle respecté ses obligations ? Et Thibaud ?</p></div>
+      <div class="question"><span class="q-num">3</span><p>Que risque Thibaud s'il continue de ne pas payer ?</p></div>
+    </div>
+    <div class="ordre-grandeur"><strong>Coup de pouce :</strong> relis le mémo de la séance : la justice et les dommages et intérêts.</div>
+    <button class="btn-corrige" onclick="toggleCorr(this)">✅ Voir la correction</button>
+    <div class="correction">
+      <div class="corr-etape">
+        <span class="c-num">1</span>
+        <p class="res">Parties : la boulangerie Au Pétrin d'Or (vendeur) et l'entreprise de Thibaud (acheteur). Contrat écrit (bon de commande signé).</p>
+      </div>
+      <div class="corr-etape">
+        <span class="c-num">2</span>
+        <p class="res">La boulangerie a respecté son obligation : livrer les 200 viennoiseries à l'heure. Thibaud ne respecte pas la sienne : payer le prix.</p>
+      </div>
+      <div class="corr-etape">
+        <span class="c-num">3</span> D'après l'encadré du manuel :
+        <code>Être contraint par la justice de payer · devoir verser des dommages et intérêts à la boulangerie</code>
+        <p class="conclu">Le bon de commande signé sert de preuve devant la justice.</p>
+      </div>
+    </div>
+  </div>
+</details>
+
+<!-- EX 15 -->
+<details class="exo-card">
+  <summary class="exo-header">
+    <span class="exo-num">Ex. 15</span>
+    <span class="badge badge-exam">★ examen</span>
+    <span class="exo-titre-txt">Analyser le bon de commande de Laure</span>
+    <span class="chevron">▼</span>
+  </summary>
+  <div class="exo-body">
+    <div class="contexte">
+      Laure, 34 ans, commande un gâteau pour le baptême de son fils. Mme Martin remplit le bon de commande suivant.
+    </div>
+    <div class="table-wrap">
+    <table class="tableau-donnees">
+      <tr><th>Bon de commande n° 214</th><th>Au Pétrin d'Or</th></tr>
+      <tr><td>Cliente</td><td>Laure, téléphone noté</td></tr>
+      <tr><td>Produit</td><td>Entremets fruits rouges, 20 parts</td></tr>
+      <tr><td>Prix total</td><td class="num">90,00 €</td></tr>
+      <tr><td>Acompte versé</td><td class="num">30,00 €</td></tr>
+      <tr><td>Retrait</td><td>Samedi 14 h</td></tr>
+      <tr><td>Signatures</td><td>La cliente et la vendeuse</td></tr>
+    </table>
+    </div>
+    <div class="questions">
+      <div class="question"><span class="q-num">1</span><p>Identifie les parties, l'objet et la forme du contrat.</p></div>
+      <div class="question"><span class="q-num">2</span><p>Vérifie les 3 conditions de validité.</p></div>
+      <div class="question"><span class="q-num">3</span><p>Cite une obligation de chaque partie.</p></div>
+      <div class="question"><span class="q-num">4</span><p>Calcule la somme que Laure doit payer au retrait.</p></div>
+    </div>
+    <div class="ordre-grandeur"><strong>Coup de pouce :</strong> les prix sont des exemples pour l'exercice. Reste à payer = prix total – acompte.</div>
+    <button class="btn-corrige" onclick="toggleCorr(this)">✅ Voir la correction</button>
+    <div class="correction">
+      <div class="corr-etape">
+        <span class="c-num">1</span>
+        <p class="res">Parties : la boulangerie Au Pétrin d'Or et Laure. Objet : un entremets de 20 parts contre 90 €. Forme : écrite.</p>
+      </div>
+      <div class="corr-etape">
+        <span class="c-num">2</span>
+        <div class="table-wrap">
+        <table class="tableau-corr">
+          <tr><th>Condition</th><th>Respectée ?</th></tr>
+          <tr><td>Consentement</td><td class="val">Oui : les deux parties signent librement.</td></tr>
+          <tr><td>Objet licite</td><td class="val">Oui : vendre un gâteau est légal.</td></tr>
+          <tr><td>Capacité</td><td class="val">Oui : Laure a 34 ans, elle est majeure.</td></tr>
+        </table>
+        </div>
+        <p class="res">Le contrat est valide.</p>
+      </div>
+      <div class="corr-etape">
+        <span class="c-num">3</span>
+        <code>Boulangerie : fabriquer et remettre l'entremets samedi à 14 h · Laure : payer le prix</code>
+      </div>
+      <div class="corr-etape">
+        <span class="c-num">4</span>
+        <code>90,00 € – 30,00 € = 60,00 €</code>
+        <p class="res">Laure doit payer 60,00 € au retrait.</p>
+      </div>
+    </div>
+  </div>
+</details>
+
+<hr class="section-sep">
+
+<!-- ══════════════════════════════════════════════════════════
+     BLOC 5 – SUJETS TYPE EXAMEN EP1 (séance 5)
+══════════════════════════════════════════════════════════ -->
+<div class="bloc-titre" id="examen" style="margin-top:40px">
+  <span class="icone">🏁</span>
+  <h2><small>Séance 5 · 1 h</small>Bloc 5 – Sujets type examen EP1</h2>
+</div>
+
+<div class="memo">
+  <div class="memo-titre">🗂 méthode pour l'examen</div>
+  <code>1. Lire la situation et souligner les parties, l'objet, les âges, les montants</code>
+  <code>2. Pour la validité, vérifier les 3 conditions dans l'ordre : consentement, objet licite, capacité</code>
+  <code>3. Répondre par une phrase complète et justifier : « parce que… »</code>
+  <p class="note">À l'épreuve EP1, la partie gestion appliquée dure environ 30 minutes et est notée sur 20. Elle s'appuie sur une situation professionnelle et porte sur au moins 3 des 5 domaines du S5. Ici, on s'entraîne sur les contrats.</p>
+</div>
+
+<!-- EX 16 -->
+<details class="exo-card">
+  <summary class="exo-header">
+    <span class="exo-num">Ex. 16</span>
+    <span class="badge badge-exam">★ examen</span>
+    <span class="exo-titre-txt">Le nouveau fournisseur de beurre</span>
+    <span class="chevron">▼</span>
+  </summary>
+  <div class="exo-body">
+    <div class="contexte">
+      M. Benali veut changer de fournisseur de beurre pour ses croissants. Un commercial passe à la boulangerie et lui propose un contrat écrit d'un an. Le prix est fixe, la livraison a lieu deux fois par semaine. M. Benali lit le contrat, compare avec son fournisseur actuel, puis signe.
+    </div>
+    <div class="questions">
+      <div class="question"><span class="q-num">1</span><p>Quel principe permet à M. Benali de changer de fournisseur ? Explique-le.</p></div>
+      <div class="question"><span class="q-num">2</span><p>Identifie les parties, le type et la forme du contrat.</p></div>
+      <div class="question"><span class="q-num">3</span><p>Le contrat est-il valide ? Justifie avec les 3 conditions.</p></div>
+      <div class="question"><span class="q-num">4</span><p>Cite une obligation du fournisseur et une obligation de la boulangerie.</p></div>
+    </div>
+    <div class="ordre-grandeur"><strong>Coup de pouce :</strong> question 1 = article 1102 du Code civil (bloc 1).</div>
+    <button class="btn-corrige" onclick="toggleCorr(this)">✅ Voir la correction</button>
+    <div class="correction">
+      <div class="corr-etape">
+        <span class="c-num">1</span>
+        <p class="res">La liberté contractuelle : chacun est libre de contracter ou non, de choisir son cocontractant et le contenu du contrat, dans les limites fixées par la loi.</p>
+      </div>
+      <div class="corr-etape">
+        <span class="c-num">2</span>
+        <p class="res">Parties : la boulangerie Au Pétrin d'Or (acheteur) et le fournisseur de beurre (vendeur). Contrat de vente, écrit.</p>
+      </div>
+      <div class="corr-etape">
+        <span class="c-num">3</span>
+        <p class="res">Oui. M. Benali signe librement après réflexion (consentement), vendre du beurre est légal (objet licite), M. Benali est un adulte responsable de son entreprise (capacité).</p>
+      </div>
+      <div class="corr-etape">
+        <span class="c-num">4</span>
+        <code>Fournisseur : livrer le beurre deux fois par semaine, au prix prévu · boulangerie : payer le prix</code>
+      </div>
+    </div>
+  </div>
+</details>
+
+<!-- EX 17 -->
+<details class="exo-card">
+  <summary class="exo-header">
+    <span class="exo-num">Ex. 17</span>
+    <span class="badge badge-exam">★ examen</span>
+    <span class="exo-titre-txt">Sujet complet : les baguettes de la fête de l'école</span>
+    <span class="chevron">▼</span>
+  </summary>
+  <div class="exo-body">
+    <div class="contexte">
+      <strong>Durée conseillée : 30 minutes. Barème indicatif sur 20.</strong><br><br>
+      L'association des parents d'élèves de l'école du quartier organise sa fête. Sa présidente, Mme Roux, passe au Pétrin d'Or :<br><br>
+      • elle commande oralement 150 baguettes tradition pour le samedi 7 h ;<br>
+      • M. Benali lui demande de signer un bon de commande et de verser un acompte ;<br>
+      • Lucas, 15 ans, fils de Mme Roux, veut signer le bon à la place de sa mère ;<br>
+      • le samedi, Hugo et Léa livrent 150 baguettes à 7 h. L'association paie le solde lundi.
+    </div>
+    <div class="questions">
+      <div class="question"><span class="q-num">1</span><p>Définis le contrat. (2 points)</p></div>
+      <div class="question"><span class="q-num">2</span><p>Identifie les parties et le type de contrat. (3 points)</p></div>
+      <div class="question"><span class="q-num">3</span><p>Pourquoi M. Benali demande-t-il un bon de commande signé ? (3 points)</p></div>
+      <div class="question"><span class="q-num">4</span><p>Lucas peut-il signer le bon à la place de sa mère ? Justifie. (4 points)</p></div>
+      <div class="question"><span class="q-num">5</span><p>Cite 2 obligations de la boulangerie et 1 obligation de l'association. (4 points)</p></div>
+      <div class="question"><span class="q-num">6</span><p>Que risque l'association si elle ne paie pas ? (4 points)</p></div>
+    </div>
+    <div class="ordre-grandeur"><strong>Coup de pouce :</strong> chaque question reprend un bloc de la séquence : définition (bloc 1), forme (bloc 2), capacité (bloc 3), obligations (bloc 4).</div>
+    <button class="btn-corrige" onclick="toggleCorr(this)">✅ Voir la correction</button>
+    <div class="correction">
+      <div class="corr-etape">
+        <span class="c-num">1</span>
+        <p class="res">Un contrat est un accord de volontés entre deux ou plusieurs personnes, destiné à créer, modifier, transmettre ou éteindre des obligations.</p>
+      </div>
+      <div class="corr-etape">
+        <span class="c-num">2</span>
+        <p class="res">Parties : la boulangerie Au Pétrin d'Or (vendeur) et l'association des parents d'élèves, représentée par Mme Roux (acheteur). Contrat de vente.</p>
+      </div>
+      <div class="corr-etape">
+        <span class="c-num">3</span>
+        <p class="res">Un écrit est une preuve en cas de litige : quantité, date, heure et prix sont fixés. C'est une protection pour les deux parties.</p>
+      </div>
+      <div class="corr-etape">
+        <span class="c-num">4</span>
+        <p class="res">Non. Lucas est mineur : il n'a pas la capacité juridique pour cet engagement important. De plus, la commande est passée par l'association, pas par lui.</p>
+      </div>
+      <div class="corr-etape">
+        <span class="c-num">5</span>
+        <code>Boulangerie : fabriquer 150 baguettes tradition · les livrer samedi à 7 h · respecter les règles d'hygiène</code>
+        <code>Association : payer le prix (acompte puis solde)</code>
+      </div>
+      <div class="corr-etape">
+        <span class="c-num">6</span>
+        <p class="res">Elle pourrait être contrainte par la justice de payer et devoir verser des dommages et intérêts à la boulangerie.</p>
+        <p class="conclu">Barème indicatif, à adapter. Exiger une phrase complète pour chaque réponse.</p>
+      </div>
+    </div>
+  </div>
+</details>
+
+<!-- EX 18 -->
+<details class="exo-card">
+  <summary class="exo-header">
+    <span class="exo-num">Ex. 18</span>
+    <span class="badge badge-exam">★ examen</span>
+    <span class="exo-titre-txt">Sujet de révision : une journée au Pétrin d'Or</span>
+    <span class="chevron">▼</span>
+  </summary>
+  <div class="exo-body">
+    <div class="contexte">
+      Une journée à la boulangerie :<br><br>
+      a. 6 h : le moulin Durand livre la farine commandée par écrit.<br>
+      b. 8 h : Jacques achète deux baguettes au comptoir.<br>
+      c. 11 h : un démarcheur se présente comme fournisseur des cantines et réclame une caution de 3 000 €. L'entreprise n'existe pas.<br>
+      d. 15 h : M. Benali signe le renouvellement de l'assurance de la boutique.
+    </div>
+    <div class="questions">
+      <div class="question"><span class="q-num">1</span><p>Pour chaque situation, indique le type de contrat et sa forme.</p></div>
+      <div class="question"><span class="q-num">2</span><p>Quelle situation présente un contrat non valide ? Nomme la condition non respectée.</p></div>
+      <div class="question"><span class="q-num">3</span><p>Dans la situation b, cite une obligation de chaque partie.</p></div>
+    </div>
+    <div class="ordre-grandeur"><strong>Coup de pouce :</strong> la situation c ressemble au document de la CNBF (exercice 10).</div>
+    <button class="btn-corrige" onclick="toggleCorr(this)">✅ Voir la correction</button>
+    <div class="correction">
+      <div class="corr-etape">
+        <span class="c-num">1</span>
+        <div class="table-wrap">
+        <table class="tableau-corr">
+          <tr><th>Situation</th><th>Type</th><th>Forme</th></tr>
+          <tr><td>a. Farine</td><td class="val">Contrat de vente</td><td>Écrit</td></tr>
+          <tr><td>b. Baguettes</td><td class="val">Contrat de vente</td><td>Oral</td></tr>
+          <tr><td>c. Démarcheur</td><td class="val">Contrat de partenariat commercial</td><td>Écrit (proposé)</td></tr>
+          <tr><td>d. Assurance</td><td class="val">Contrat d'assurance</td><td>Écrit</td></tr>
+        </table>
+        </div>
+      </div>
+      <div class="corr-etape">
+        <span class="c-num">2</span>
+        <p class="res">La situation c : il y a tromperie sur l'identité de l'entreprise. Le consentement n'est pas libre, le contrat n'est pas valide.</p>
+      </div>
+      <div class="corr-etape">
+        <span class="c-num">3</span>
+        <code>Boulangerie : fournir des baguettes consommables, dans le respect des règles d'hygiène · Jacques : payer le prix</code>
+        <p class="conclu">Une même journée réunit plusieurs contrats : vente, assurance, et parfois des contrats à refuser.</p>
+      </div>
+    </div>
+  </div>
+</details>
+
+</main>
+
+
+<footer class="site-footer">
+  CAP boulanger – Gestion appliquée &nbsp;|&nbsp; Chapitre 17 : les contrats &nbsp;|&nbsp; 18 exercices progressifs
+</footer>
+
+<script>
+function toggleCorr(btn) {
+  const corr = btn.nextElementSibling;
+  const isVisible = corr.classList.contains('visible');
+  corr.classList.toggle('visible', !isVisible);
+  btn.textContent = isVisible ? '✅ Voir la correction' : '🔒 Masquer la correction';
+}
+</script>
+</body>
+</html>
